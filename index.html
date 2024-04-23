@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Urodziny Julki</title>
+<style>
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #333;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+button {
+    background-color: #ff4081;
+    color: white;
+    border: none;
+    padding: 20px 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+.message {
+    display: none;
+    color: white;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 55%;
+    width: 100%;
+    text-align: center;
+    z-index: 1;
+}
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+</style>
+</head>
+<body>
+<button onclick="toggleMessage()">Otwórz prezent</button>
+<div class="message">Życzę Ci mnóstwa promiennych uśmiechów, radości, zdrowia i cudownych doświadczeń!</div>
+<canvas id="confetti"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.0/dist/confetti.min.js"></script>
+<script>
+document.getElementById('presentButton').addEventListener('click', function() {
+    var message = document.querySelector('.message');
+    message.style.display = message.style.display === 'none' ? 'block' : 'none';
+    if (message.style.display === 'block') {
+        this.textContent = "Zamknij";
+        startConfetti();
+    } else {
+        this.textContent = "Otwórz prezent";
+    }
+});
+
+function startConfetti() {
+    var end = Date.now() + (15 * 1000);
+    var colors = ['#bb0000', '#ffffff'];
+
+    (function frame() {
+        confetti({
+            particleCount: 7,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: colors
+        });
+        confetti({
+            particleCount: 7,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: colors
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    }());
+}
+
+</script>
+
+</body>
+</html>
